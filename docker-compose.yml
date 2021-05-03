@@ -1,0 +1,54 @@
+version: '3.3'
+services:
+  mongodb:
+    image : mongo
+    container_name: mongodb
+    environment:
+    - PUID=1000
+    - PGID=1000
+    volumes:
+    - /home/barry/mongodb/database:/data/db
+    ports:
+    - 27017:27017
+    restart: unless-stopped
+  axonserver:
+    image : axon
+    image: axoniq/axonserver
+    hostname: axonserver
+    volumes:
+      - axonserver-data:/data
+      - axonserver-events:/eventdata
+      - axonserver-config:/config:ro
+    ports:
+      - '8024:8024'
+      - '8124:8124'
+      - '8224:8224'
+    networks:
+      - axon-demo
+volumes:
+  mongodb:
+  axonserver-data:
+  axonserver-events:
+  axonserver-config:
+volumes:
+  mongodb:
+  axonserver-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/data
+      o: bind
+  axonserver-events:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/events
+      o: bind
+  axonserver-config:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/config
+      o: bind
+networks:
+  axon-demo:
