@@ -21,7 +21,7 @@ import com.artifact.query.query.ContatoAtualQuery;
 
 import lombok.AllArgsConstructor;
 
-@RestController
+@RestController               
 @AllArgsConstructor
 public class QueryEndPoint {
 
@@ -46,11 +46,9 @@ public class QueryEndPoint {
 	public ResponseEntity<?> contatoHistorico(@PathVariable String cpf){
 		return new ResponseEntity<>(queryGateway.query(new ContatoHistoricoQuery(cpf), new MultipleInstancesResponseType<Contato>(Contato.class)).join(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/pessoa/contato/atual/{cpf}")
 	public ResponseEntity<?> contatoAtual(@PathVariable String cpf){
 		return new ResponseEntity<>(queryGateway.query(new ContatoAtualQuery(cpf), new InstanceResponseType<Contato>(Contato.class)).join(), HttpStatus.OK);
 	}
-	
-
 }
