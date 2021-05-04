@@ -1,19 +1,12 @@
-package com.artifact.query.projection;
+package com.artifact.pessoarepository.eventprocessing.query;
 
-import java.time.Instant;
 import java.util.Date;
-import org.axonframework.eventhandling.EventHandler;
-import org.axonframework.eventhandling.Timestamp;
 import org.axonframework.queryhandling.QueryHandler;
-import org.axonframework.queryhandling.QueryUpdateEmitter;
 import org.springframework.stereotype.Component;
-
 import com.artifact.query.query.ContatoHistoricoQuery;
-import com.artifact.commad.events.IncluirContatoEvent;
 import com.artifact.pessoarepository.entity.Contato;
 import com.artifact.pessoarepository.repository.ContatoRepository;
 import com.artifact.query.query.ContatoAtualQuery;
-
 import lombok.AllArgsConstructor;
 
 @Component
@@ -21,14 +14,13 @@ import lombok.AllArgsConstructor;
 public class ContatoProjection {
 
 	
-	private final ContatoRepository contatoRepository;
-	private final QueryUpdateEmitter updateEmitter;
-	
+	private final ContatoRepository contatoRepository;	
 
 	@QueryHandler
 	public Iterable<Contato> handle(ContatoHistoricoQuery query){
 		return contatoRepository.findAllByCpfOrderByTimestamp(query.getCpf());
 	}
+	
 	
 	@QueryHandler
 	public Contato handle(ContatoAtualQuery query){

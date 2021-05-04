@@ -1,4 +1,4 @@
-package com.artifact.pessoarepository.impl;
+package com.artifact.pessoarepository.eventprocessing.commad;
 
 import java.time.Instant;
 
@@ -16,7 +16,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Component
-public class EnderecoImplemetation {
+public class EnderecoImplemetationCommad {
 	
 	private final EnderecoRepository enderecoRepository;
 	private final QueryUpdateEmitter updateEmitter;

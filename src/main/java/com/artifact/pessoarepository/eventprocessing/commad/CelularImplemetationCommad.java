@@ -1,14 +1,11 @@
-package com.artifact.query.projection;
-
-import java.time.Instant;
-import java.util.List;
+package com.artifact.pessoarepository.eventprocessing.commad;
 
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.eventhandling.Timestamp;
 import org.axonframework.queryhandling.QueryHandler;
 import org.axonframework.queryhandling.QueryUpdateEmitter;
 import org.springframework.stereotype.Component;
-
+import java.time.Instant;
 import com.artifact.query.query.ContatoHistoricoQuery;
 import com.artifact.commad.events.AlterarCelularEvent;
 import com.artifact.commad.events.IncluirEnderecoEvent;
@@ -20,17 +17,21 @@ import com.artifact.query.query.CelularQuery;
 
 import lombok.AllArgsConstructor;
 
-@Component
 @AllArgsConstructor
-public class CelularProjection {
+@Component
+public class CelularImplemetationCommad {
 	
 	private final CelularRepository celularRepository;
 	private final QueryUpdateEmitter updateEmitter;
 	
-
-	@QueryHandler
-	public Iterable<Celular> handle(CelularQuery query){
-		return celularRepository.findAllByCpfOrderByTimestamp(query.getCfp());
+	@EventHandler
+	public void on(AlterarCelularEvent evt, @Timestamp Instant timestamp){
+		Celular celular = new Celular();
+		celular.setTimestamp(timestamp.toEpochMilli());
+		celular.setCpf(evt.getCpf());
+		celular.setNumeroCelular(evt.getNumeroCelular());
+		celularRepository.save(celular);
+		updateEmitter.emit(CelularQuery.class,  query -> query.getCfp().equals(evt.getCpf()),  celular );
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.artifact.pessoarepository.impl;
+package com.artifact.pessoarepository.eventprocessing.commad;
 
 import java.time.Instant;
 
@@ -20,7 +20,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Component
-public class PessoaImplemetation {
+public class PessoaImplemetationCommad {
 	
 	private final PessoaRepository pessoaRepository;
 	private final QueryUpdateEmitter updateEmitter;
