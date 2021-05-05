@@ -1,4 +1,4 @@
-package com.artifact.pessoarepository.eventprocessing.query;
+package com.artifact.query.projection;
 
 import java.util.Date;
 import org.axonframework.queryhandling.QueryHandler;

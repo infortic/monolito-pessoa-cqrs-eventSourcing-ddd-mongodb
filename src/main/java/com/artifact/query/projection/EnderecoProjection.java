@@ -1,4 +1,4 @@
-package com.artifact.pessoarepository.eventprocessing.query;
+package com.artifact.query.projection;
 
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.stereotype.Component;

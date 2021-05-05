@@ -1,4 +1,4 @@
-package com.artifact.pessoarepository.eventprocessing.query;
+package com.artifact.query.projection;
 
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,8 @@ public class PessoaProjection {
 	
 	@QueryHandler
 	public Pessoa handle(PessoaQuery query){
-		return pessoaRepository.findByCpf(query.getCpf());		
+		Pessoa p = pessoaRepository.findByCpf(query.getCpf());
+		return p;		
 	}
 		
 }
